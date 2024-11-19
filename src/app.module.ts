@@ -14,6 +14,7 @@ import { validate } from '@app/config/env.validation';
 import { GlobalExceptionFilter } from '@app/common/filters/global-exception.filter';
 import { UsersModule } from '@app/modules/users/users.module';
 import { AuthModule } from '@app/modules/auth/auth.module';
+import { BooksModule } from '@app/modules/books/books.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { AuthModule } from '@app/modules/auth/auth.module';
     }),
     UsersModule,
     AuthModule,
+    BooksModule,
   ],
   controllers: [AppController],
   providers: [

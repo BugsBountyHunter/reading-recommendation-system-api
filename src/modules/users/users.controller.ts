@@ -1,4 +1,4 @@
-import { UserRolesDecorators } from '@app/modules/auth/decorators/role.decorator';
+import { UserRolesDecorator } from '@app/modules/auth/decorators/role.decorator';
 import { JwtGuard } from '@app/modules/auth/guard/jwt.guard';
 import { RoleGuard } from '@app/modules/auth/guard/role.guard';
 import { User } from '@app/modules/users/entities/user.entity';
@@ -20,7 +20,7 @@ import { ThrottlerGuard } from '@nestjs/throttler';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @UserRolesDecorators(UserRole.ADMIN)
+  @UserRolesDecorator(UserRole.ADMIN)
   @UseGuards(RoleGuard)
   @UseGuards(JwtGuard)
   @Get(':id')
