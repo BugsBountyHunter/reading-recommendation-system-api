@@ -63,6 +63,7 @@ describe('AuthService', () => {
           createdAt: new Date(),
           updatedAt: new Date(),
           deletedAt: null,
+          readingIntervals: [],
         },
         username: 'testuser',
         password: 'plainPassword',

@@ -5,9 +5,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Book } from '@app/modules/books/entities/book.entity';
 import { AuthModule } from '@app/modules/auth/auth.module';
 import { UsersModule } from '@app/modules/users/users.module';
+import { ReadingInterval } from '@app/modules/reading-interval/entities/reading-interval.entity';
 
 @Module({
-  imports: [AuthModule, UsersModule, TypeOrmModule.forFeature([Book])],
+  imports: [
+    AuthModule,
+    UsersModule,
+    TypeOrmModule.forFeature([Book, ReadingInterval]),
+  ],
   controllers: [BooksController],
   providers: [BooksService],
 })

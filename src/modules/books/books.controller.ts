@@ -77,4 +77,18 @@ export class BooksController {
   async remove(@Param('id') id: string) {
     return this.bookService.delete(id);
   }
+
+  @UserRolesDecorator(UserRole.ADMIN, UserRole.USER)
+  @UseGuards(RoleGuard)
+  @UseGuards(JwtGuard)
+  @Get('/top-5-books')
+  @ApiOperation({ summary: 'Get the top 5 books' })
+  @ApiResponse({
+    status: 200,
+    description: 'Successfully retrieved top 5 books',
+    type: '[Top5BookResponse]',
+  })
+  async getTop5Books() {
+    return await this.bookService.pickTop5Books();
+  }
 }

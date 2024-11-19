@@ -4,14 +4,20 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { ReadingInterval } from '@app/modules/reading-interval/entities/reading-interval.entity';
 
 @Entity({ name: 'users' })
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  // Reference Columns
+  @OneToMany(() => ReadingInterval, (readingInterval) => readingInterval.user)
+  readingIntervals: ReadingInterval[];
 
   // Normal Columns
   @Column({ unique: true })

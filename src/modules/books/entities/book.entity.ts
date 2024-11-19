@@ -1,9 +1,11 @@
+import { ReadingInterval } from '@app/modules/reading-interval/entities/reading-interval.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
   Index,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -14,6 +16,11 @@ export class Book {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  // Reference Columns
+  @OneToMany(() => ReadingInterval, (readingInterval) => readingInterval.book)
+  readingIntervals: ReadingInterval[];
+
+  // Normal Columns
   @Column({ name: 'name' })
   name: string;
 

@@ -15,6 +15,7 @@ import { GlobalExceptionFilter } from '@app/common/filters/global-exception.filt
 import { UsersModule } from '@app/modules/users/users.module';
 import { AuthModule } from '@app/modules/auth/auth.module';
 import { BooksModule } from '@app/modules/books/books.module';
+import { ReadingIntervalModule } from '@app/modules/reading-interval/reading-interval.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { BooksModule } from '@app/modules/books/books.module';
     UsersModule,
     AuthModule,
     BooksModule,
+    ReadingIntervalModule,
   ],
   controllers: [AppController],
   providers: [
