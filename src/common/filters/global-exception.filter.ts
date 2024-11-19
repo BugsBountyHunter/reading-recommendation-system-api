@@ -1,4 +1,3 @@
-import { IResponse } from '@app/common/utils/iresponse';
 import {
   ArgumentsHost,
   Catch,
@@ -7,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { InjectPinoLogger, PinoLogger } from 'nestjs-pino';
+import { IResponse } from '@app/common/utils/iresponse';
 
 @Catch()
 export class GlobalExceptionFilter<T extends Error> implements ExceptionFilter {
@@ -14,21 +14,45 @@ export class GlobalExceptionFilter<T extends Error> implements ExceptionFilter {
     @InjectPinoLogger(GlobalExceptionFilter.name)
     private readonly logger: PinoLogger,
   ) {}
+
   catch(exception: T, host: ArgumentsHost) {
     const context = host.switchToHttp();
     const request = context.getRequest<Request>();
     const response = context.getResponse<Response>();
 
+    // Determine error details
+    const status =
+      (exception as any).status || HttpStatus.INTERNAL_SERVER_ERROR; // Allow for custom exceptions
+    const errorResponse = {
+      statusCode: status,
+      message: exception.message || 'Internal server error',
+      timestamp: new Date().toISOString(),
+      path: request.url,
+    };
+
+    // Enhanced structured logging
     this.logger.error({
-      request: { ...request },
-      response: { ...response },
-      exception: { ...exception },
+      exceptionName: exception.name,
+      exceptionMessage: exception.message,
+      stackTrace: exception.stack,
+      request: {
+        method: request.method,
+        url: request.url,
+        headers: request.headers,
+        body: request.body,
+        params: request.params,
+        query: request.query,
+      },
+      response: {
+        statusCode: status,
+      },
     });
 
-    response.status(HttpStatus.INTERNAL_SERVER_ERROR).send(<IResponse<string>>{
-      errors: { ...exception },
-      message: exception.message,
-      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+    // Return consistent response structure
+    response.status(status).json(<IResponse<null>>{
+      statusCode: status,
+      message: errorResponse.message,
+      errors: exception.stack ? { stack: exception.stack } : null, // Include stack trace only in dev
     });
   }
 }
