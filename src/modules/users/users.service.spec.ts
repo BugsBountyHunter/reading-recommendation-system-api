@@ -13,7 +13,7 @@ jest.mock('@app/common/utils/hash-password.utils');
 describe('UsersService', () => {
   let service: UsersService;
   let userRepository: Repository<User>;
-  let configService: ConfigService;
+  // let configService: ConfigService;
 
   const mockUserRepository = {
     create: jest.fn(),
@@ -35,7 +35,7 @@ describe('UsersService', () => {
 
     service = module.get<UsersService>(UsersService);
     userRepository = module.get<Repository<User>>(getRepositoryToken(User));
-    configService = module.get<ConfigService>(ConfigService);
+    // configService = module.get<ConfigService>(ConfigService);
   });
 
   afterEach(() => {
@@ -96,6 +96,7 @@ describe('UsersService', () => {
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
+        readingIntervals: [],
       };
 
       mockUserRepository.findOne.mockResolvedValue(user);

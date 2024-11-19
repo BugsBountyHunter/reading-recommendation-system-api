@@ -2,11 +2,14 @@ import { Book } from '@app/modules/books/entities/book.entity';
 import { User } from '@app/modules/users/entities/user.entity';
 import {
   Column,
+  CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   Relation,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity({ name: 'reading_intervals' })
@@ -27,4 +30,27 @@ export class ReadingInterval {
 
   @Column({ name: 'end_page' })
   endPage: number;
+
+  // Timestamp Columns
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    name: 'created_at',
+  })
+  createdAt: Date;
+
+  @UpdateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    name: 'updated_at',
+    onUpdate: 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
+
+  @DeleteDateColumn({
+    type: 'timestamptz',
+    nullable: true,
+    name: 'deleted_at',
+  })
+  deletedAt: Date;
 }

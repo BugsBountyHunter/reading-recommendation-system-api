@@ -52,6 +52,7 @@ describe('UsersController', () => {
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
+        readingIntervals: [],
       };
       mockUsersService.find.mockResolvedValue(user);
       jest.spyOn(usersService, 'find').mockResolvedValue({ data: user });

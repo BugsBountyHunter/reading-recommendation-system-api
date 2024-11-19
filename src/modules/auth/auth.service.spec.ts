@@ -97,6 +97,7 @@ describe('AuthService', () => {
           createdAt: new Date(),
           updatedAt: new Date(),
           deletedAt: null,
+          readingIntervals: [],
         },
         username: 'testuser',
         password: 'plainPassword',
@@ -127,6 +128,7 @@ describe('AuthService', () => {
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
+        readingIntervals: [],
       };
 
       jest.spyOn(configService, 'get').mockReturnValue('3600');

@@ -97,7 +97,7 @@ export class BooksService {
       }),
     );
     return <IResponse<Top5BookResponse[]>>{
-      data: books,
+      data: books.filter((book) => book !== null),
     };
   }
 }

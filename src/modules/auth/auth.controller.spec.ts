@@ -101,6 +101,7 @@ describe('AuthController', () => {
           createdAt: new Date(),
           updatedAt: new Date(),
           deletedAt: null,
+          readingIntervals: [],
         },
       };
       const mockResponse: IResponse<LoginResponse> = {
@@ -138,6 +139,7 @@ describe('AuthController', () => {
           createdAt: new Date(),
           updatedAt: new Date(),
           deletedAt: null,
+          readingIntervals: [],
         },
       };
 

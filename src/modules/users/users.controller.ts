@@ -28,7 +28,7 @@ export class UsersController {
   @ApiResponse({
     status: 200,
     description: 'The user has been successfully fetched.',
-    type: User, // Replace with your User entity or DTO
+    type: User,
   })
   @ApiResponse({
     status: 403,
